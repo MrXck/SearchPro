@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="../static/js/未压缩版的jQuery.js"></script>
+    <script src="../static/css/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <style>
+        .mar {
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+        .im {
+            width: 100px;
+            height: 100px;
+        }
+
+        .img {
+            float: left;
+        }
+
+        .jianjie {
+            margin-left: 50px;
+            float: left;
+        }
+
+        .tab {
+            margin-top: 50px;
+        }
+
+        .sp {
+            display: inline-block;
+            width: 500px;
+        }
+
+        .ul li {
+            list-style: none;
+            float: left;
+            font-size: 20px;
+            margin-left: 30px;
+        }
+
+        #jianyi {
+            background-color: white;
+            width: 500px;
+            position: absolute;
+            z-index: 999;
+            display: none;
+        }
+
+        #jianyi ul li {
+            list-style: none;
+            margin-left: -5%;
+        }
+
+        #jianyi ul li:hover {
+            background-color: #86bdbd;
+            cursor: pointer;
+        }
+
+        #inp {
+            width: 300px;
+            position: relative;
+        }
+
+        .p {
+            margin-left: 7%;
+            font-size: 16px;
+            color: #6d6d72;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" id="inp" class="form-control" placeholder="Search" autocomplete="off">
+                </div>
+                <div id="jianyi">
+                    <ul class="uu" id="uu">
+                    </ul>
+                </div>
+                <button type="button" id="search" class="btn btn-default">搜索</button>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="tab clearfix mar">
+    <ul class="ul nav nav-tabs">
+        <li role="presentation" type="_all" class="active  fenlei"><a href="#">全部</a></li>
+        <li role="presentation" type="news" class="fenlei"><a href="#">新闻</a></li>
+        <li role="presentation" type="advice" class="fenlei"><a href="#">导购</a></li>
+        <li role="presentation" type="drive" class="fenlei"><a href="#">试驾评测</a></li>
+        <li role="presentation" type="use" class="fenlei"><a href="#">用车</a></li>
+    </ul>
+</div>
+<div id="search_result_num" class="mar" style="display: none"></div>
+<div id="main" class="mar">
+    <!--    <div class="clearfix tab">-->
+    <!--        <div class="img">-->
+    <!--          <img class="im" src="static/分析过程.jpg" alt="">-->
+    <!--        </div>-->
+    <!--        <div class="jianjie">-->
+    <!--          <h3 style="display: inline-block"><a href="">北汽</a></h3><br>-->
+    <!--          <span style="color: #6d6d72">24365465454243</span>-->
+    <!--        </div>-->
+    <!--    </div>-->
+</div>
+<nav class="mar" aria-label="Page navigation" style="display: none">
+    <ul class="pagination" id="page">
+        <!--    <li>-->
+        <!--      <a href="#" aria-label="Previous">-->
+        <!--        <span aria-hidden="true">&laquo;</span>-->
+        <!--      </a>-->
+        <!--    </li>-->
+        <!--    <li><a class="page" href="#">1</a></li>-->
+        <!--    <li>-->
+        <!--      <a href="#" aria-label="Next">-->
+        <!--        <span aria-hidden="true">&raquo;</span>-->
+        <!--      </a>-->
+        <!--    </li>-->
+    </ul>
+</nav>
+</body>
+<script>
+    window.get = "http://172.17.97.127:9555/"
+    function create_pa(content) {
+        var count = 1;
+        for (let i = 0; i < content.hits.total; i += 10) {
+            if (count <= 10) {
+                var li = document.createElement('li');
+                li.innerHTML = '<a class="page" href="#">' + count + '</a>';
+                $('#page').append(li);
+                count += 1;
+            } else {
+                break;
+            }
+        }
+        $('.mar').css({'display': 'block'})
+        for (var i = 0; i < $('.page').length; i++) {
+            $('.page').eq(i).click(function () {
+                $('#main').html("");
+                $.post(window.get + 'get_data', {
+                    'key_word': window.search,
+                    'page_num': this.innerText,
+                    'type': window.type
+                }, function (data) {
+                    if (data.code === 0) {
+                        for (var c = 0; c < data.data.hits.hits.length; c++) {
+                            create_div(data.data.hits.hits[c]);
+                        }
+                    }
+                })
+            })
+        }
+    }
+
+    $('#search').click(function () {
+        $('#jianyi').css({'display': 'none'});
+        $('#main').html("");
+        window.type = '_all';
+        window.search = $('#inp').val();
+        get_data();
+    })
+
+    for (var b = 0; b < $('.fenlei').length; b++) {
+        $('.fenlei').eq(b).click(function () {
+            for (let i = 0; i < $('.tab .ul li').length; i++) {
+                $('.tab .ul li').eq(i).removeClass('active');
+            }
+            this.className = 'fenlei active';
+            window.type = this.type;
+            get_data();
+        })
+    }
+
+    function create_li(content) {
+        var li = document.createElement('li');
+        // li.innerHTML = content.highlight.key_word;  // 搜索的高亮
+        // li.innerHTML = content.highlighted;         // 建议器的高亮
+        if(content.text) {
+            li.innerHTML = content.text;
+        }else {
+            li.innerHTML = content;
+        }
+        $(li).click(function () {
+            $('#inp').val(li.innerText);
+            window.search = li.innerText;
+            window.type = "_all";
+            $('#jianyi').css({'display': 'none'});
+            get_data();
+        })
+        $('#uu').append(li);
+    }
+
+    function create_div(content) {
+        var div = document.createElement('div');
+        div.className = 'clearfix tab';
+        console.log(content._source.article_img_url);
+        div.innerHTML = '<div class="img"><img class="im" src="' + content._source.article_img_url + '" alt=""></div><div class="jianjie"><h3 style="display: inline-block"><a href="' + content._source.article_url + '">' + content.highlight.key_word + '</a></h3><br><span class="sp" style="color: #6d6d72">' + content._source.article_jianjie + '</span></div>'
+        document.getElementById('main').appendChild(div);
+    }
+
+    function get_data() {
+        $.post(window.get + 'get_data', {
+            'key_word': window.search,
+            'page_num': 1,
+            'type': window.type
+        }, function (data) {
+            $('#main').html("");
+            $('#page').html('');
+            $('#search_result_num').css({'display': "block"});
+            if (data.code === 0) {
+                $('#search_result_num').html("<p class='p'>约有 <b style='color: red'>" + data.data.hits.total + "</b> 条结果</p>");
+                for (var c = 0; c < data.data.hits.hits.length; c++) {
+                    create_div(data.data.hits.hits[c]);
+                }
+                create_pa(data.data);
+            } else {
+                $('#search_result_num').html("<p class='p'>约有 <b style='color: red'>0</b> 条结果</p>");
+            }
+        })
+    }
+
+    $('#inp').bind('input propertychange', function () {
+        $('#uu').html('');
+        var sear = $('#inp').val();
+        $.post(window.get + 'get_jianyi',
+            {
+                'key_word': sear
+            },
+            function (data) {
+                if (data.code === 0) {
+                    $('#jianyi').css({'display': 'block'});
+                    // for(var c = 0; c < data.data.hits.hits.length; c++){
+                        // create_li(data.data.hits.hits[c]);
+                    for (var c = 0; c < data.data.suggest.my_s[0].options.length; c++) {
+                        create_li(data.data.suggest.my_s[0].options[c]);
+                    }
+                } else {
+                    $('#jianyi').css({'display': 'none'});
+                }
+
+                // for (let i = 0; i < $('#uu li').length; i++) {  // 字体加粗 未完成
+                //     var li_v = $('#uu li').eq(i).html();
+                //     li_v = li_v.replace('<b>', '');
+                //     li_v = li_v.replace('</b>', '');
+                //     li_v = li_v.replace(sear, "");
+                //     console.log(li_v);
+                //     $('#uu li').eq(i).html(sear + '<b>' + li_v + '</b>');
+                // }
+            })
+    })
+</script>
+</html>
